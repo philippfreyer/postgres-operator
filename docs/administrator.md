@@ -1197,6 +1197,18 @@ of the backup cron job.
 `cronjobs` resource from the `batch` API group for the operator service account.
 See [example RBAC](https://github.com/zalando/postgres-operator/blob/master/manifests/operator-service-account-rbac.yaml)
 
+Logical backup environment variables:
+* Common: `LOGICAL_BACKUP_PROVIDER` - one of the following: `s3` (default), `gcs`, `dir`, `dav`
+* AWS:
+   `LOGICAL_BACKUP_S3_BUCKET`, `LOGICAL_BACKUP_S3_REGION`, `LOGICAL_BACKUP_S3_ENDPOINT`, `LOGICAL_BACKUP_S3_SSE`,
+   `LOGICAL_BACKUP_S3_RETENTION_TIME`, `LOGICAL_BACKUP_S3_BUCKET_SCOPE_SUFFIX`
+* GCP:
+   `LOGICAL_BACKUP_GS_BUCKET`, `LOGICAL_BACKUP_GS_BUCKET_SCOPE_SUFFIX`, `LOGICAL_BACKUP_GOOGLE_APPLICATION_CREDENTIALS`
+* WebDAV:
+    `LOGICAL_BACKUP_WEBDAV_PROTOCOL` - either `https` (default) or `http`, `LOGICAL_BACKUP_WEBDAV_URL`, `LOGICAL_BACKUP_WEBDAV_PATH`, `LOGICAL_BACKUP_WEBDAV_USER`, `LOGICAL_BACKUP_WEBDAV_PASSWORD`
+* Archive folder:
+   `LOGICAL_BACKUP_FOLDER`, `LOGICAL_BACKUP_FOLDER_RETENTION_TIME_DAYS`
+
 ## Sidecars for Postgres clusters
 
 A list of sidecars is added to each cluster created by the operator. The default

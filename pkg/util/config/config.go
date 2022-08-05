@@ -137,6 +137,13 @@ type LogicalBackup struct {
 	LogicalBackupS3RetentionTime              string `name:"logical_backup_s3_retention_time" default:""`
 	LogicalBackupGoogleApplicationCredentials string `name:"logical_backup_google_application_credentials" default:""`
 	LogicalBackupJobPrefix                    string `name:"logical_backup_job_prefix" default:"logical-backup-"`
+	LogicalBackupWebDAVProtocol               string `name:"logical_backup_webdav_protocol" default:"https"`
+	LogicalBackupWebDAVURL                    string `name:"logical_backup_webdav_url" default:""`
+	LogicalBackupWebDAVPath                   string `name:"logical_backup_webdav_path" default:""`
+	LogicalBackupWebDAVUser                   string `name:"logical_backup_webdav_user" default:""`
+	LogicalBackupWebDAVPassword               string `name:"logical_backup_webdav_password" default:""`
+	LogicalBackupFolder                       string `name:"logical_backup_folder" default:""`
+	LogicalBackupFolderRetentionTimeDays      *int32 `name:"logical_backup_folder_retention_time_days" default:30`
 }
 
 // Operator options for connection pooler

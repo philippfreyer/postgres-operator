@@ -150,6 +150,7 @@ configuration:
     logical_backup_docker_image: "registry.opensource.zalan.do/acid/logical-backup:v1.8.2"
     # logical_backup_google_application_credentials: ""
     logical_backup_job_prefix: "logical-backup-"
+    # Options: s3, gcs, dav, dir
     logical_backup_provider: "s3"
     # logical_backup_s3_access_key_id: ""
     logical_backup_s3_bucket: "my-bucket-url"
@@ -158,6 +159,14 @@ configuration:
     # logical_backup_s3_secret_access_key: ""
     logical_backup_s3_sse: "AES256"
     # logical_backup_s3_retention_time: ""
+    # Options: https, http
+    logical_backup_webdav_protocol: "https"
+    logical_backup_webdav_url: ""
+    # logical_backup_webdav_path: ""
+    # logical_backup_webdav_user: ""
+    # logical_backup_webdav_password: ""
+    logical_backup_folder: "/my/backup/volume/path"
+    logical_backup_folder_retention_time_days: 30
     logical_backup_schedule: "30 00 * * *"
   debug:
     debug_logging: true

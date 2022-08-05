@@ -179,6 +179,13 @@ func (c *Controller) importConfigurationFromCRD(fromCRD *acidv1.OperatorConfigur
 	result.LogicalBackupS3RetentionTime = fromCRD.LogicalBackup.RetentionTime
 	result.LogicalBackupGoogleApplicationCredentials = fromCRD.LogicalBackup.GoogleApplicationCredentials
 	result.LogicalBackupJobPrefix = util.Coalesce(fromCRD.LogicalBackup.JobPrefix, "logical-backup-")
+	result.LogicalBackupWebDAVProtocol = util.Coalesce(fromCRD.LogicalBackup.WebDAVProtocol, "https")
+	result.LogicalBackupWebDAVURL = fromCRD.LogicalBackup.WebDAVURL
+	result.LogicalBackupWebDAVPath = fromCRD.LogicalBackup.WebDAVPath
+	result.LogicalBackupWebDAVUser = util.Coalesce(fromCRD.LogicalBackup.WebDAVUser, "")
+	result.LogicalBackupWebDAVPassword = util.Coalesce(fromCRD.LogicalBackup.WebDAVPassword, "")
+	result.LogicalBackupFolder = fromCRD.LogicalBackup.Folder
+	result.LogicalBackupFolderRetentionTimeDays = fromCRD.LogicalBackup.FolderRetentionTimeDays
 
 	// debug config
 	result.DebugLogging = fromCRD.OperatorDebug.DebugLogging

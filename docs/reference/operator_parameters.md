@@ -705,6 +705,14 @@ grouped under the `logical_backup` key.
   The default image is the same image built with the Zalando-internal CI
   pipeline. Default: "registry.opensource.zalan.do/acid/logical-backup:v1.8.2"
 
+* **logical_backup_folder**
+  Specifies the directory that logical backup archives should be stored in if `logical_backup_provider` is set to `dir`.
+  The default is empty.
+
+* **logical_backup_folder_retention_time_days**
+  Specifies the maximum backup file age for the logical backup folder.
+  The default is `30`.
+
 * **logical_backup_google_application_credentials**
   Specifies the path of the google cloud service account json file. Default is empty.
 
@@ -712,8 +720,8 @@ grouped under the `logical_backup` key.
   The prefix to be prepended to the name of a k8s CronJob running the backups. Beware the prefix counts towards the name length restrictions imposed by k8s. Empty string is a legitimate value. Operator does not do the actual renaming: It simply creates the job with the new prefix. You will have to delete the old cron job manually. Default: "logical-backup-".
 
 * **logical_backup_provider**
-  Specifies the storage provider to which the backup should be uploaded (`s3` or `gcs`).
-  Default: "s3"
+  Specifies the storage provider to which the backup should be uploaded (`s3`, `gcs`, `dav` or `dir`).
+  Default: `s3`
 
 * **logical_backup_s3_access_key_id**
   When set, value will be in AWS_ACCESS_KEY_ID env variable. The Default is empty.
@@ -744,6 +752,23 @@ grouped under the `logical_backup` key.
   Backup schedule in the cron format. Please take the
   [reference schedule format](https://kubernetes.io/docs/tasks/job/automated-tasks-with-cron-jobs/#schedule)
   into account. Default: "30 00 \* \* \*"
+
+* **logical_backup_webdav_password**
+  Specify the password needed for HTTP basic auth when uploading the logical backup to a WebDAV server.
+  No authentication is attempted if both username and password are not set. The default is empty.
+
+* **logical_backup_webdav_path**  
+  Specify a path below the WebDAV server URL to store the logical backup archive in. The default is empty.
+
+* **logical_backup_webdav_protocol**
+  Specify the protocol used to connect to the WebDAV server. Either `https` or `http`. The default is `https`.
+
+* **logical_backup_webdav_url**
+  Specify the URL of the WebDAV server to upload the logical backup archive to. The default is empty.
+
+* **logical_backup_webdav_user**
+  Specify the username needed for HTTP basic auth when uploading thelogical backup archive to a WebDAV server.
+  No authentication is attempted if both username and password are not set. The default is empty.
 
 ## Debugging the operator
 

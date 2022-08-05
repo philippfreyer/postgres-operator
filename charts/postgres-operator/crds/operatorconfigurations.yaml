@@ -482,6 +482,20 @@ spec:
                     type: string
                   logical_backup_s3_retention_time:
                     type: string
+                  logical_backup_webdav_protocol:
+                    type: string
+                  logical_backup_webdav_url:
+                    type: string
+                  logical_backup_webdav_path:
+                    type: string
+                  logical_backup_webdav_user:
+                    type: string
+                  logical_backup_webdav_password:
+                    type: string
+                  logical_backup_folder:
+                    type: string
+                  logical_backup_folder_retention_time_days:
+                    type: integer
                   logical_backup_schedule:
                     type: string
                     pattern: '^(\d+|\*)(/\d+)?(\s+(\d+|\*)(/\d+)?){4}$'

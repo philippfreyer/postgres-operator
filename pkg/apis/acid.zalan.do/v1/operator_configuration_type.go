@@ -224,6 +224,13 @@ type OperatorLogicalBackupConfiguration struct {
 	RetentionTime                string `json:"logical_backup_s3_retention_time,omitempty"`
 	GoogleApplicationCredentials string `json:"logical_backup_google_application_credentials,omitempty"`
 	JobPrefix                    string `json:"logical_backup_job_prefix,omitempty"`
+	WebDAVProtocol               string `json:"logical_backup_webdav_protocol,omitempty"`
+	WebDAVURL                    string `json:"logical_backup_webdav_url,omitempty"`
+	WebDAVPath                   string `json:"logical_backup_webdav_path,omitempty"`
+	WebDAVUser                   string `json:"logical_backup_webdav_user,omitempty"`
+	WebDAVPassword               string `json:"logical_backup_webdav_password,omitempty"`
+	Folder                       string `json:"logical_backup_folder,omitempty"`
+	FolderRetentionTimeDays      *int32 `json:"logical_backup_folder_retention_time_days,omitempty"`
 }
 
 // OperatorConfigurationData defines the operation config

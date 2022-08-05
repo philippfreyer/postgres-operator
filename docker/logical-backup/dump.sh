@@ -25,6 +25,12 @@ echo "API Endpoint: ${K8S_API_URL}"
 CERT=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 
 LOGICAL_BACKUP_PROVIDER=${LOGICAL_BACKUP_PROVIDER:="s3"}
+LOGICAL_BACKUP_WEBDAV_PROTOCOL=${LOGICAL_BACKUP_WEBDAV_PROTOCOL:="https"}
+if [ "${LOGICAL_BACKUP_WEBDAV_PROTOCOL}" != "https" ]; then
+  if [ "${LOGICAL_BACKUP_WEBDAV_PROTOCOL}" != "http" ]; then
+    LOGICAL_BACKUP_WEBDAV_PROTOCOL="https"
+  fi
+fi
 LOGICAL_BACKUP_S3_RETENTION_TIME=${LOGICAL_BACKUP_S3_RETENTION_TIME:=""}
 
 function estimate_size {
@@ -115,10 +121,44 @@ function gcs_upload {
     gsutil -o Credentials:gs_service_key_file=$LOGICAL_BACKUP_GOOGLE_APPLICATION_CREDENTIALS cp - "$PATH_TO_BACKUP"
 }
 
+function folder_upload {
+    PATH_TO_BACKUP_FOLDER="${LOGICAL_BACKUP_FOLDER}/${SCOPE}/logical_backups/"
+    PATH_TO_BACKUP="${LOGICAL_BACKUP_FOLDER}/${SCOPE}/logical_backups/$(date +%s).sql.gz"
+    mkdir -p "${PATH_TO_BACKUP_FOLDER}"
+    cat - > "${PATH_TO_BACKUP}"
+}
+
+function folder_delete_outdated {
+      if [[ -z "${LOGICAL_BACKUP_FOLDER_RETENTION_TIME_DAYS}" ]] ; then
+          echo "no retention time configured: skip cleanup of outdated backups"
+          return 0
+      fi
+
+      PATH_TO_BACKUP_FOLDER="${LOGICAL_BACKUP_FOLDER}/${SCOPE}/logical_backups/"
+      # delett files with a modification date past the cutoff
+      find . -maxdepth 1 -type f -mtime +${LOGICAL_BACKUP_FOLDER_RETENTION_TIME_DAYS} -print0 | xargs -0 /bin/rm -f
+}
+
+function webdav_upload {
+    PATH_TO_BACKUP="${LOGICAL_BACKUP_WEBDAV_PROTOCOL}://${LOGICAL_BACKUP_WEBDAV_URL}${LOGICAL_BACKUP_WEBDAV_PATH}}/${SCOPE}_logical_backup_$(date +%s).sql.gz"
+    if [ "${LOGICAL_BACKUP_WEBDAV_USER}" != "" ]; then
+      if [ "${LOGICAL_BACKUP_WEBDAV_PASSWORD}" != "" ]; then
+        USER_AUTH="-u ${LOGICAL_BACKUP_WEBDAV_USER}:${LOGICAL_BACKUP_WEBDAV_PASSWORD}"
+      fi
+    fi
+    curl -T - ${USER_AUTH} "${PATH_TO_BACKUP}"
+}
+
 function upload {
     case $LOGICAL_BACKUP_PROVIDER in
         "gcs")
             gcs_upload
+            ;;
+        "dir")
+            folder_upload
+            ;;
+        "dav")
+            webdav_upload
             ;;
         *)
             aws_upload $(($(estimate_size) / DUMP_SIZE_COEFF))

@@ -330,7 +330,7 @@ configLogicalBackup:
 
   # prefix for the backup job name
   logical_backup_job_prefix: "logical-backup-"
-  # storage provider - either "s3" or "gcs"
+  # storage provider - either "s3", "gcs", "dav" or "dir"
   logical_backup_provider: "s3"
   # S3 Access Key ID
   logical_backup_s3_access_key_id: ""
@@ -346,6 +346,20 @@ configLogicalBackup:
   logical_backup_s3_sse: "AES256"
   # S3 retention time for stored backups for example "2 week" or "7 days"
   logical_backup_s3_retention_time: ""
+  # WebDAV protocol - either "https" or "http"
+  logical_backup_webdav_protocol: "https"
+  # WebDAV URL
+  logical_backup_webdav_url: ""
+  # WebDAV URL path
+  logical_backup_webdav_path: ""
+  # WebDAV Basic auth username
+  logical_backup_webdav_user: ""
+  # WebDAV basic auth Password
+  logical_backup_webdav_password: ""
+  # Folder to store the backups in (if storage provider is "dir")
+  logical_backup_folder: "/my/backup/volume/path"
+  # Backup folder file retention time in days
+  logical_backup_folder_retention_time_days: 30
   # backup schedule in the cron format
   logical_backup_schedule: "30 00 * * *"
 

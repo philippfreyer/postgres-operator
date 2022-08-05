@@ -1631,6 +1631,27 @@ var OperatorConfigCRDResourceValidation = apiextv1.CustomResourceValidation{
 							"logical_backup_s3_retention_time": {
 								Type: "string",
 							},
+							"logical_backup_webdav_protocol": {
+								Type: "string",
+							},
+							"logical_backup_webdav_url": {
+								Type: "string",
+							},
+							"logical_backup_webdav_path": {
+								Type: "string",
+							},
+							"logical_backup_webdav_user": {
+								Type: "string",
+							},
+							"logical_backup_webdav_password": {
+								Type: "string",
+							},
+							"logical_backup_folder": {
+								Type: "string",
+							},
+							"logical_backup_folder_retention_time_days": {
+								Type: "integer",
+							},
 							"logical_backup_schedule": {
 								Type:    "string",
 								Pattern: "^(\\d+|\\*)(/\\d+)?(\\s+(\\d+|\\*)(/\\d+)?){4}$",

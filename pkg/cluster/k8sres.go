@@ -2188,6 +2188,34 @@ func (c *Cluster) generateLogicalBackupPodEnvVars() []v1.EnvVar {
 			Name:  "LOGICAL_BACKUP_GOOGLE_APPLICATION_CREDENTIALS",
 			Value: c.OpConfig.LogicalBackup.LogicalBackupGoogleApplicationCredentials,
 		},
+		{
+			Name:  "LOGICAL_BACKUP_WEBDAV_PROTOCOL",
+			Value: c.OpConfig.LogicalBackup.LogicalBackupWebDAVProtocol,
+		},
+		{
+			Name:  "LOGICAL_BACKUP_WEBDAV_URL",
+			Value: c.OpConfig.LogicalBackup.LogicalBackupWebDAVURL,
+		},
+		{
+			Name:  "LOGICAL_BACKUP_WEBDAV_PATH",
+			Value: c.OpConfig.LogicalBackup.LogicalBackupWebDAVPath,
+		},
+		{
+			Name:  "LOGICAL_BACKUP_WEBDAV_USER",
+			Value: c.OpConfig.LogicalBackup.LogicalBackupWebDAVUser,
+		},
+		{
+			Name:  "LOGICAL_BACKUP_WEBDAV_PASSWORD",
+			Value: c.OpConfig.LogicalBackup.LogicalBackupWebDAVPassword,
+		},
+		{
+			Name:  "LOGICAL_BACKUP_FOLDER",
+			Value: c.OpConfig.LogicalBackup.LogicalBackupFolder,
+		},
+		{
+			Name:  "LOGICAL_BACKUP_FOLDER_RETENTION_TIME_DAYS",
+			Value: c.OpConfig.LogicalBackup.LogicalBackupFolderRetentionTimeDays,
+		},
 		// Postgres env vars
 		{
 			Name:  "PG_VERSION",
